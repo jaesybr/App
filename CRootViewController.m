@@ -1,58 +1,80 @@
-#import "CRootViewController.h"
+// AuthenticationViewController.h
+#import <UIKit/UIKit.h>
 
-@interface CRootViewController ()
-@property (nonatomic, strong) NSMutableArray * objects;
+@interface AuthenticationViewController : UIViewController
+// Declare authentication-related methods and properties here
 @end
 
-@implementation CRootViewController
+// AuthenticationViewController.m
+#import "AuthenticationViewController.h"
 
-- (void)loadView {
-	[super loadView];
+@implementation AuthenticationViewController
+// Implement authentication-related methods and properties here
+@end
 
-	_objects = [NSMutableArray array];
+// TransactionViewController.h
+#import <UIKit/UIKit.h>
 
-	self.title = @"Root View Controller";
-	self.navigationItem.leftBarButtonItem = self.editButtonItem;
-	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonTapped:)];
-}
+@interface TransactionViewController : UIViewController
+// Declare transaction-related methods and properties here
+@end
 
-- (void)addButtonTapped:(id)sender {
-	[_objects insertObject:[NSDate date] atIndex:0];
-	[self.tableView insertRowsAtIndexPaths:@[ [NSIndexPath indexPathForRow:0 inSection:0] ] withRowAnimation:UITableViewRowAnimationAutomatic];
-}
+// TransactionViewController.m
+#import "TransactionViewController.h"
 
-#pragma mark - Table View Data Source
+@implementation TransactionViewController
+// Implement transaction-related methods and properties here
+@end
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 1;
-}
+// InvestmentViewController.h
+#import <UIKit/UIKit.h>
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return _objects.count;
-}
+@interface InvestmentViewController : UIViewController
+// Declare investment-related methods and properties here
+@end
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	static NSString *CellIdentifier = @"Cell";
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+// InvestmentViewController.m
+#import "InvestmentViewController.h"
 
-	if (!cell) {
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-	}
+@implementation InvestmentViewController
+// Implement investment-related methods and properties here
+@end
 
-	NSDate *date = _objects[indexPath.row];
-	cell.textLabel.text = date.description;
-	return cell;
-}
+// SettingsViewController.h
+#import <UIKit/UIKit.h>
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-	[_objects removeObjectAtIndex:indexPath.row];
-	[tableView deleteRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationAutomatic];
-}
+@interface SettingsViewController : UIViewController
+// Declare settings-related methods and properties here
+@end
 
-#pragma mark - Table View Delegate
+// SettingsViewController.m
+#import "SettingsViewController.h"
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+@implementation SettingsViewController
+// Implement settings-related methods and properties here
+@end
+
+// AppDelegate.h
+#import <UIKit/UIKit.h>
+
+@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@property (strong, nonatomic) UIWindow *window;
+@end
+
+// AppDelegate.m
+#import "AppDelegate.h"
+#import "AuthenticationViewController.h"
+
+@implementation AppDelegate
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    // Override point for customization after application launch.
+    AuthenticationViewController *authViewController = [[AuthenticationViewController alloc] init];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:authViewController];
+    self.window.rootViewController = navigationController;
+    [self.window makeKeyAndVisible];
+    return YES;
 }
 
 @end
